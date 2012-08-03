@@ -1,4 +1,4 @@
 subpost
 =======
 
-WordPress: Plugin: Subordinate Post Type Helps
+WordPress: Plugin: Subordinate Post Type Helpers
