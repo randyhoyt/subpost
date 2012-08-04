@@ -3,6 +3,8 @@
 /*
 Plugin Name: Subordinate Post Type Helpers
 Description: This plugin provides a number of helpers for registering a custom post type that is subordinate to another post type.
+Version: 0.1
+Author: randyhoyt
 */
 
 function register_sub_post_type($post_type,$args,$parent_post_type) {
