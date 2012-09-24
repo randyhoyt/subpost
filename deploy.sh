@@ -33,7 +33,7 @@ git tag -a "$VERSION_NUMBER" -m "Tagging version $VERSION_NUMBER"
 git push
 git push --tags
 git checkout dev
-
+exit
 # Set up Subversion repository configuration.
 SVNFOLDER='svn/'$SVNSLUG
 SVNPATH=${GITPATH/$GITFOLDER/$SVNFOLDER}
