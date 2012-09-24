@@ -17,14 +17,11 @@ SVNUSER="randyhoyt"
 GITPATH=`pwd`
 GITFOLDER='plugins/'$GITSLUG
 
-# Get the version number
-#NEWVERSIONTXT=`grep "^Stable tag" $GITPATH/readme.txt | awk -F' ' '{print $3}'`
-#NEWVERSIONPHP=`grep "^Version" $GITPATH/$MAINFILE | awk -F' ' '{print $2}'`
-#if [ "$NEWVERSIONPHP" != 9 ]; then echo "Versions don't match. Please try again."; exit 1; fi
+# Prompt for the new version number
 echo "What is the new version number?"
 read VERSION_NUMBER
 
-# Merge dev into master, tag the version, and push everything to Git. Remove
+# Merge dev into master, tag the version, and push everything to Git.
 echo "Tagging new version in Git."
 git checkout master
 git merge dev
