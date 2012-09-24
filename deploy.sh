@@ -60,4 +60,4 @@ git checkout-index -a -f --prefix=$SVNPATH/trunk/
 
 echo "Switching to Subversion directory and committing."
 cd $SVNPATH/trunk/
-svn commit --username=$SVNUSER -m "Committing version $NEWVERSIONTXT"
+svn commit --username=$SVNUSER -m "Committing version $NEWVERSION"
