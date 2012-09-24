@@ -27,11 +27,12 @@ git checkout master
 git merge dev
 CURRENTVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
 sed -c -i 's/Stable tag: '$CURRENTVERSION'/Stable tag: '${VERSION_NUMBER}'/g' ${GITPATH}/readme.txt
+git add *
+git commit -m "Merging version $VERSION_NUMBER to master"
 git checkout dev
 exit
 sed -c -i 's/99\.99\.99/'${VERSION_NUMBER}'/g' ${GITPATH}/${MAINFILE}
-git add *
-git commit -m "Merging version $VERSION_NUMBER to master"
+
 
 
 git tag -a "$VERSION_NUMBER" -m "Tagging version $VERSION_NUMBER"
