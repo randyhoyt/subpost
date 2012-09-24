@@ -28,7 +28,7 @@ read VERSION_NUMBER
 echo "Tagging new version in Git."
 git checkout master
 git merge dev
-sed -c -i 's/99\.99\.99/0.1.1d/g' ${GITPATH}/readme.txt
+sed -c -i 's/99\.99\.99/${VERSION_NUMBER}/g' ${GITPATH}/readme.txt
 sed -c -i 's/99\.99\.99/0.1.1d/g' ${GITPATH}/${GITSLUG}.php
 git add *
 git commit -m "Merging version $VERSION_NUMBER to master"
