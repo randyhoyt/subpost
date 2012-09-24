@@ -28,7 +28,7 @@ git merge dev
 CURRENTVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
 sed -c -i 's/Stable tag: '$CURRENTVERSION'/Stable tag: '${NEWVERSION}'/g' ${GITPATH}/readme.txt
 CURRENTVERSION=`grep "^Version:" $GITPATH/$MAINFILE | awk -F' ' '{print $NF}'`
-sed -c -i 's/Version: '$CURRENTVERSION'/'${NEWVERSION}'/g' ${GITPATH}/${MAINFILE}
+sed -c -i 's/Version: '$CURRENTVERSION'/Version: '${NEWVERSION}'/g' ${GITPATH}/${MAINFILE}
 git add *
 git commit -m "Merging version $NEWVERSION to master"
 git tag -a "$NEWVERSION" -m "Tagging version $NEWVERSION"
