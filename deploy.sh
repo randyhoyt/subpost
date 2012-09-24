@@ -21,20 +21,32 @@ GITFOLDER='plugins/'$GITSLUG
 echo "What is the new version number?"
 read NEWVERSION
 
-# Merge dev into master, tag the version, and push everything to master. REMOVE
+# Update version number, tag the version, push everything to master.
 echo "Tagging new version in Git."
-git checkout master
-git merge dev
 CURRENTVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
 sed -c -i 's/Stable tag: '$CURRENTVERSION'/Stable tag: '${NEWVERSION}'/g' ${GITPATH}/readme.txt
 CURRENTVERSION=`grep "^Version:" $GITPATH/$MAINFILE | awk -F' ' '{print $NF}'`
 sed -c -i 's/Version: '$CURRENTVERSION'/Version: '${NEWVERSION}'/g' ${GITPATH}/${MAINFILE}
-git add *
-git commit -m "Merging version $NEWVERSION to master"
+git add readme.txt
+git add ${GITPATH}/${MAINFILE}
+git commit -m "Tagging version $NEWVERSION"
 git tag -a "$NEWVERSION" -m "Tagging version $NEWVERSION"
 git push
 git push --tags
+git checkout master
+git merge dev
+git add *
+git commit -m "Merging version $NEWVERSION to master"
 git checkout dev
+CURRENTVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
+sed -c -i 's/Stable tag: '$CURRENTVERSION'/Stable tag: '${NEWVERSION}'/g' ${GITPATH}/readme.txt
+CURRENTVERSION=`grep "^Version:" $GITPATH/$MAINFILE | awk -F' ' '{print $NF}'`
+sed -c -i 's/Version: '$CURRENTVERSION'/Version: '${NEWVERSION}'/g' ${GITPATH}/${MAINFILE}
+git add readme.txt
+git add ${GITPATH}/${MAINFILE}
+git commit -m "Tagging version $NEWVERSION"
+git push
+exit
 
 # Set up Subversion repository configuration.
 SVNFOLDER='svn/'$SVNSLUG

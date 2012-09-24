@@ -8,7 +8,11 @@ Stable tag: 0.1.1
 =======
 Requires at least: 3.4
 Tested up to: 3.4.2
+<<<<<<< HEAD
 Stable tag: 99.99.99
+>>>>>>> dev
+=======
+Stable tag: 0.2
 >>>>>>> dev
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
