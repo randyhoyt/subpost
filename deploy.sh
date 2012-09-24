@@ -27,7 +27,7 @@ read VERSION_NUMBER
 # Merge dev into master, tag the version, and push everything to Git. Remove
 echo "Tagging new version in Git."
 git checkout master
-get merge dev
+git merge dev
 sed -c -ie 's/Version/0.1.1d/g' ${GITPATH}/readme.txt
 git tag -a "$VERSION_NUMBER" -m "Tagging version $VERSION_NUMBER"
 git push
