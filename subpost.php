@@ -3,7 +3,7 @@
 /*
 Plugin Name: Subordinate Post Type Helpers
 Description: This plugin provides a number of helpers for registering a custom post type that is subordinate to another post type.
-Version: 0.1.1
+Version: 0.2
 Author: randyhoyt
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,7 +81,7 @@ class SubPostTypeFactory
 
 }
 
-function subpost_add_to_submenu($arg1=null, $arg2=null, $arg3=null, $arg4=null) {
+function subpost_add_to_submenu() {
 
     global $menu,$submenu;
 
@@ -95,10 +95,12 @@ function subpost_add_to_submenu($arg1=null, $arg2=null, $arg3=null, $arg4=null) 
             } else {
                 $parent_query_string = "";
             }
-            add_submenu_page('edit.php' . $parent_query_string, $post_type['args']['labels']['name'], $post_type['args']['labels']['name'], 'edit_posts', 'edit.php?post_type=' . $post_type["post_type"]);
-            add_submenu_page('edit.php' . $parent_query_string, $post_type['args']['labels']['all_items'], "&#8212; " . $post_type['args']['labels']['all_items'], 'edit_posts', 'edit.php?post_type=' . $post_type["post_type"]);
-            add_submenu_page('edit.php' . $parent_query_string, $post_type['args']['labels']['add_new_item'], "&#8212; " . $post_type['args']['labels']['add_new_item'], 'edit_posts', 'post-new.php?post_type=' . $post_type["post_type"]);
-            remove_menu_page('edit.php?post_type=' . $post_type["post_type"]);  
+            if ($post_type['args']['show_in_menu']!== false) {
+                add_submenu_page('edit.php' . $parent_query_string, $post_type['args']['labels']['name'], $post_type['args']['labels']['name'], 'edit_posts', 'edit.php?post_type=' . $post_type["post_type"]);
+                add_submenu_page('edit.php' . $parent_query_string, $post_type['args']['labels']['all_items'], "&#8212; " . $post_type['args']['labels']['all_items'], 'edit_posts', 'edit.php?post_type=' . $post_type["post_type"]);
+                add_submenu_page('edit.php' . $parent_query_string, $post_type['args']['labels']['add_new_item'], "&#8212; " . $post_type['args']['labels']['add_new_item'], 'edit_posts', 'post-new.php?post_type=' . $post_type["post_type"]);
+            }
+            remove_menu_page('edit.php?post_type=' . $post_type["post_type"]);
         }
     }
 
