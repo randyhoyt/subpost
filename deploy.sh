@@ -24,14 +24,15 @@ GITFOLDER='plugins/'$GITSLUG
 echo "What is the new version number?"
 read VERSION_NUMBER
 
-# Merge dev into master, tag the version, and push everything to Git.
+# Merge dev into master, tag the version, and push everything to Git. Remove
 echo "Tagging new version in Git."
 git checkout master
 git merge dev
-git add *
-git commit -m "Merging version $VERSION_NUMBER to master"
 sed -c -i 's/99\.99\.99/0.1.1d/g' ${GITPATH}/readme.txt
 sed -c -i 's/99\.99\.99/0.1.1d/g' ${GITPATH}/${GITSLUG}.php
+git add *
+git commit -m "Merging version $VERSION_NUMBER to master"
+
 
 git tag -a "$VERSION_NUMBER" -m "Tagging version $VERSION_NUMBER"
 git push
