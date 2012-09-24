@@ -21,7 +21,7 @@ GITFOLDER='plugins/'$GITSLUG
 echo "What is the new version number?"
 read VERSION_NUMBER
 
-# Merge dev into master, tag the version, and push everything to Git. REMOVE
+# Merge dev into master, tag the version, and push everything to Git.
 echo "Tagging new version in Git."
 git checkout master
 git merge dev
