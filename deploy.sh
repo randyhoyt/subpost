@@ -28,7 +28,7 @@ read VERSION_NUMBER
 echo "Tagging new version in Git."
 git checkout master
 git merge dev
-sed -c -ie 's/Version/0.1.1d/g' ${GITPATH}/readme.txt
+sed -ie 's/VERSION/0.1.1d/g' ${GITPATH}/readme.txt
 git tag -a "$VERSION_NUMBER" -m "Tagging version $VERSION_NUMBER"
 git push
 git push --tags
