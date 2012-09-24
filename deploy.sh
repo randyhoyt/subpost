@@ -17,20 +17,22 @@ SVNUSER="randyhoyt"
 GITPATH=`pwd`
 GITFOLDER='plugins/'$GITSLUG
 
-# Check the version numbers and exit if they don't match.
-NEWVERSIONTXT=`grep "^Stable tag" $GITPATH/readme.txt | awk -F' ' '{print $3}'`
-NEWVERSIONPHP=`grep "^Version" $GITPATH/$MAINFILE | awk -F' ' '{print $2}'`
-
+# Get the version number
+#NEWVERSIONTXT=`grep "^Stable tag" $GITPATH/readme.txt | awk -F' ' '{print $3}'`
+#NEWVERSIONPHP=`grep "^Version" $GITPATH/$MAINFILE | awk -F' ' '{print $2}'`
 #if [ "$NEWVERSIONPHP" != 9 ]; then echo "Versions don't match. Please try again."; exit 1; fi
+echo "What is the new version number?"
+read VERSION_NUMBER
 
-# Tag this version in Git.
-#echo "Versions match in readme.txt and PHP file. Let's proceed."
+# Merge dev into master, tag the version, and push everything to Git.
 echo "Tagging new version in Git."
-git tag -a "$NEWVERSIONTXT" -m "Tagging version $NEWVERSIONTXT"
-
-echo "Pushing latest commit to origin, with tags."
-git push origin master
-git push origin master --tags
+git checkout master
+get merge dev
+sed -ie 's/Version/0.1.1d/g' ${GITPATH}/readme.txt
+git tag -a "$VERSION_NUMBER" -m "Tagging version $VERSION_NUMBER"
+git push
+git push --tags
+git checkout dev
 
 # Set up Subversion repository configuration.
 SVNFOLDER='svn/'$SVNSLUG
@@ -52,6 +54,8 @@ README.md
 echo "Exporting from Git to Subversion trunk."
 git checkout-index -a -f --prefix=$SVNPATH/trunk/
 
+
+
 echo "Switching to Subversion directory and committing."
 cd $SVNPATH/trunk/
-svn commit --username=$SVNUSER -m "Committing version $NEWVERSIONTXT"
+#svn commit --username=$SVNUSER -m "Committing version $NEWVERSIONTXT"
