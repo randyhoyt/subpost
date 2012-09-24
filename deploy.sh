@@ -21,10 +21,13 @@ GITFOLDER='plugins/'$GITSLUG
 echo "What is the new version number?"
 read VERSION_NUMBER
 
-# Merge dev into master, tag the version, and push everything to Git. REMOVE
+# Merge dev into master, tag the version, and push everything to master.
 echo "Tagging new version in Git."
 git checkout master
 git merge dev
+NEWVERSION1=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
+echo NEWVERSION1
+exit
 sed -c -i 's/99\.99\.99/'${VERSION_NUMBER}'/g' ${GITPATH}/readme.txt
 sed -c -i 's/99\.99\.99/'${VERSION_NUMBER}'/g' ${GITPATH}/${MAINFILE}
 git add *
