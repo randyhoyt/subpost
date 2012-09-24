@@ -25,10 +25,10 @@ read VERSION_NUMBER
 echo "Tagging new version in Git."
 git checkout master
 git merge dev
-NEWVERSION1=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
-echo NEWVERSION1
+CURRENTVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
+sed -c -i 's/Stable tag: '$CURRENTVERSION'/Stable tag: '${VERSION_NUMBER}'/g' ${GITPATH}/readme.txt
+git checkout dev
 exit
-sed -c -i 's/99\.99\.99/'${VERSION_NUMBER}'/g' ${GITPATH}/readme.txt
 sed -c -i 's/99\.99\.99/'${VERSION_NUMBER}'/g' ${GITPATH}/${MAINFILE}
 git add *
 git commit -m "Merging version $VERSION_NUMBER to master"
