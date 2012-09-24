@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: randyhoyt
 Tags: custom post types
-Requires at least: 3.4.1
-Tested up to: 3.4.1f
+Requires at least: 3.4
+Tested up to: 3.4.2
 Stable tag: 99.99.99
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -17,6 +17,9 @@ For an example on how to use the functions this plugin makes available, check ou
 <ul><li>https://github.com/randyhoyt/mythsoc-groups</li></ul>
 
 == Changelog ==
+
+= 0.2 =
+* 'show_in_menu' argument is now honored for the child post type.
 
 = 0.1.1 =
 * 'post' can now be specified as the parent post type.
