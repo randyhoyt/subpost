@@ -30,8 +30,13 @@ git checkout master
 git merge dev
 git add *
 git commit -m "Merging version $VERSION_NUMBER to master"
+<<<<<<< HEAD
 sed -i 's/Stable/Yeah/g' ${GITPATH}/readme.txt
 sed -i 's/VERSION/0.1.1d/g' ${GITPATH}/${GITSLUG}.php
+=======
+sed 's/VERSION/Yeah/g' ${GITPATH}/readme.txt
+sed 's/VERSION/0.1.1d/g' ${GITPATH}/${GITSLUG}.php
+>>>>>>> dev
 
 git tag -a "$VERSION_NUMBER" -m "Tagging version $VERSION_NUMBER"
 git push
