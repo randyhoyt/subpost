@@ -38,14 +38,6 @@ git merge dev
 git add *
 git commit -m "Merging version $NEWVERSION to master"
 git checkout dev
-NEWVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
-sed -c -i 's/Stable tag: '$NEWVERSION'/Stable tag: VERSION_NUMBER/g' ${GITPATH}/readme.txt
-NEWVERSION=`grep "^Version:" $GITPATH/$MAINFILE | awk -F' ' '{print $NF}'`
-sed -c -i 's/Version: '$NEWVERSION'/Version: VERSION_NUMBER/g' ${GITPATH}/${MAINFILE}
-git add readme.txt
-git add ${GITPATH}/${MAINFILE}
-git commit -m "Tagging version $NEWVERSION"
-git push
 
 # Set up Subversion repository configuration.
 SVNFOLDER='svn/'$SVNSLUG
@@ -72,3 +64,12 @@ git checkout-index -a -f --prefix=$SVNPATH/trunk/
 echo "Switching to Subversion directory and committing."
 cd $SVNPATH/trunk/
 svn commit --username=$SVNUSER -m "Committing version $NEWVERSIONTXT"
+
+NEWVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
+sed -c -i 's/Stable tag: '$NEWVERSION'/Stable tag: VERSION_NUMBER/g' ${GITPATH}/readme.txt
+NEWVERSION=`grep "^Version:" $GITPATH/$MAINFILE | awk -F' ' '{print $NF}'`
+sed -c -i 's/Version: '$NEWVERSION'/Version: VERSION_NUMBER/g' ${GITPATH}/${MAINFILE}
+git add readme.txt
+git add ${GITPATH}/${MAINFILE}
+git commit -m "Tagging version $NEWVERSION"
+git push
