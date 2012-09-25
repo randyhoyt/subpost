@@ -65,6 +65,8 @@ echo "Switching to Subversion directory and committing."
 cd $SVNPATH/trunk/
 svn commit --username=$SVNUSER -m "Committing version $NEWVERSIONTXT"
 
+
+cd $GITPATH
 NEWVERSION=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
 sed -c -i 's/Stable tag: '$NEWVERSION'/Stable tag: VERSION_NUMBER/g' ${GITPATH}/readme.txt
 NEWVERSION=`grep "^Version:" $GITPATH/$MAINFILE | awk -F' ' '{print $NF}'`
