@@ -3,7 +3,7 @@
 /*
 Plugin Name: Subordinate Post Type Helpers
 Description: This plugin provides a number of helpers for registering a custom post type that is subordinate to another post type.
-Version: 0.2
+Version: 0.2.1
 Author: randyhoyt
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ function register_sub_post_type($post_type,$args,$parent_post_type) {
 
     $sub_post_type_factory = SubPostTypeFactory::getInstance();
     $sub_post_type_factory->addPostType($current_sub_post_type);
-    add_action('init',$sub_post_type_factory->wp_init(),99999);
+    add_action('init',array($sub_post_type_factory,'wp_init'),99999);
 
 }
 
@@ -36,9 +36,10 @@ class SubPostTypeFactory
 
     public static function getInstance() {
 
-        if (!self::$sub_post_type_factory) {
+        if (!isset(self::$sub_post_type_factory)) {
             self::$sub_post_type_factory = new SubPostTypeFactory();
         }
+
         return self::$sub_post_type_factory;
     }
 
@@ -50,7 +51,8 @@ class SubPostTypeFactory
 
     public function getPostTypes() {
 
-        return self::$sub_post_types;
+        $return = self::$sub_post_types;
+        return $return;
 
     }
 
@@ -76,7 +78,7 @@ class SubPostTypeFactory
             add_action("admin_menu", "subpost_add_to_submenu",10,2);
             add_action("add_meta_boxes","subpost_add_meta_box");
 
-        }
+        } 
     }
 
 }
@@ -101,7 +103,7 @@ function subpost_add_to_submenu() {
                 add_submenu_page('edit.php' . $parent_query_string, $post_type['args']['labels']['add_new_item'], "&#8212; " . $post_type['args']['labels']['add_new_item'], 'edit_posts', 'post-new.php?post_type=' . $post_type["post_type"]);
             }
             remove_menu_page('edit.php?post_type=' . $post_type["post_type"]);
-        }
+        } 
     }
 
 }
@@ -204,7 +206,7 @@ function subpost_display_one_child($post,$sub_post_type) {
 
 }
 
-add_action( 'admin_footer', 'subpost_javascript_footer');
+//add_action( 'admin_footer', 'subpost_javascript_footer');
 function subpost_javascript_footer() {
 
 ?>
