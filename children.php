@@ -7,8 +7,9 @@ if (isset($_REQUEST["action"]) && $_REQUEST["action"]=="save") {
 	$nonce = $_REQUEST['_wpnonce'];
 	if (! wp_verify_nonce($nonce, 'subpost') ) wp_die("You do not have permission to do that.");
 
-	if ($_POST['form_submit']=="Move to Trash") {
+	if (isset($_POST['form_submit']) && $_POST['form_submit']=="Move to Trash") {
 
+    	$post_id = 0;
 		$post_id = (int) $_POST["ID"]; 
 		if ($post_id > 0) {
 			$post = get_post($post_id);
@@ -18,13 +19,16 @@ if (isset($_REQUEST["action"]) && $_REQUEST["action"]=="save") {
 	} else {
 
 		// save and return with JavaScript
-		$post_id = (int) $_POST["ID"]; 
+		$post_id = 0;
+		$post = new stdClass;
+		$post->ID = 0;
+		if (isset($_POST["ID"])) {
+    		$post_id = (int) $_POST["ID"]; 
+        }
 		if ($post_id > 0) {
 			$post = get_post($post_id);
 		}
-
 		if($post->ID == 0) {
-			$post = new stdClass;
 			$post->post_status = 'publish';
 		}
 
@@ -97,8 +101,10 @@ if (isset($_REQUEST["action"]) && $_REQUEST["action"]=="save") {
 <body style="min-height: 0px; height: auto;">
 
 	<?php
-		$form_title = $_REQUEST['form_title'];
-		if ($form_title!="") {
+		if (isset($_REQUEST['form_title'])) {
+            $form_title = $_REQUEST['form_title'];
+        } 
+		if (isset($form_title) && $form_title!="") {
 	?><h3 style="padding-left: 1.25em;" class="media-title"><?php echo $form_title; ?></h3><?php
 		}
 	?>
