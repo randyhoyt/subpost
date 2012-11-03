@@ -1,8 +1,6 @@
 <?php
 
-require_once('../../../wp-admin/admin.php');
-
-if (isset($_REQUEST["action"]) && $_REQUEST["action"]=="save") {
+if (isset($_REQUEST["submit_action"]) && $_REQUEST["submit_action"]=="save") {
 
 	$nonce = $_REQUEST['_wpnonce'];
 	if (! wp_verify_nonce($nonce, 'subpost') ) wp_die("You do not have permission to do that.");
@@ -111,7 +109,7 @@ if (isset($_REQUEST["action"]) && $_REQUEST["action"]=="save") {
 
 	<form method="post" class="media-upload-form"><div id="media-items"><div style="margin: 1em;" class="media-item"><div style="padding: 1em;">
 
-		<input type="hidden" name="action" value="save" />
+		<input type="hidden" name="submit_action" value="save" />
 		<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('subpost'); ?>" />
 		<input type="hidden" name="post_parent" value="<?php echo $child->post_parent; ?>" />
 		<input type="hidden" name="post_type" value="<?php echo $child->post_type; ?>" />

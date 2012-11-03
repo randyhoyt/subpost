@@ -154,7 +154,16 @@ function subpost_render_meta_box() {
         echo '<p>' . $current_sub_post_type["args"]['labels']['not_found'] . '</p>';
     }
     echo '</div>';
-    echo '<a title="' . $current_sub_post_type["args"]['labels']['add_new_item'] . '" class="button thickbox" href="'. plugin_dir_url(__FILE__) . 'children.php?&amp;form_title=' . $current_sub_post_type["args"]['labels']['add_new_item'] . '&amp;post_parent=' . $post->ID . '&amp;post_type=' . $current_sub_post_type["post_type"] . '&amp;TB_iframe=1&amp;width=480&amp;height=440">' . $current_sub_post_type["args"]['labels']['add_new_item'] . '</a>';   
+
+//    $new_link = plugin_dir_url(__FILE__) . 'children.php?&amp;form_title=' . $current_sub_post_type["args"]['labels']['add_new_item'] . '&amp;post_parent=' . $post->ID;    
+    $new_link = admin_url('admin-post.php?action=subpost_form_children&amp;children.php&amp;form_title=' . $current_sub_post_type["args"]['labels']['add_new_item']) . '&amp;post_parent=' . $post->ID;
+
+    echo '<a title="' . $current_sub_post_type["args"]['labels']['add_new_item'] . '" class="button thickbox" href="'. $new_link . '&amp;post_type=' . $current_sub_post_type["post_type"] . '&amp;TB_iframe=1&amp;width=480&amp;height=440">' . $current_sub_post_type["args"]['labels']['add_new_item'] . '</a>';   
+}
+
+add_action('admin_post_subpost_form_children','subpost_form_children');
+function subpost_form_children() {
+    include("children.php");
 }
 
 function subpost_display_all_children($post_id,$sub_post_type_name) {
@@ -193,7 +202,8 @@ function subpost_display_one_child($post,$sub_post_type) {
 
     $output = "";
 
-    $edit_link = plugin_dir_url(__FILE__) . 'children.php?&amp;form_title=' . $sub_post_type["args"]['labels']['edit_item'] . '&amp;post=' . $post->ID . '&amp;post_parent=' . $post->post_parent . '&amp;post_type=' . $sub_post_type["post_type"] . '&amp;TB_iframe=1&amp;width=480&amp;height=440';
+//    $edit_link = plugin_dir_url(__FILE__) . 'children.php?&amp;form_title=' . $sub_post_type["args"]['labels']['edit_item'] . '&amp;post=' . $post->ID . '&amp;post_parent=' . $post->post_parent . '&amp;post_type=' . $sub_post_type["post_type"] . '&amp;TB_iframe=1&amp;width=480&amp;height=440';
+    $edit_link = admin_url('admin-post.php?action=subpost_form_children&amp;form_title=' . $sub_post_type["args"]['labels']['edit_item'] . '&amp;post=' . $post->ID . '&amp;post_parent=' . $post->post_parent . '&amp;post_type=' . $sub_post_type["post_type"]) . '&amp;TB_iframe=1&amp;width=480&amp;height=440';    
     $output .= '<tr id="post-' . $post->ID . '" class="post-' . $post->ID . '" valign="top">';
     $output .= '<td class="post-title page-title column-title"><strong><a class="row-title thickbox" href="' . $edit_link . '" title="' . $sub_post_type["args"]['labels']['edit_item'] . '">' . esc_attr($post->post_title) . '</a></strong>';
     $output .= '<span class="row-actions"><span class="edit"><a class="thickbox" href="' . $edit_link . '" title="' . $sub_post_type["args"]['labels']['edit_item'] . '">' . $sub_post_type["args"]['labels']['edit_item'] . '</a></span></td>';
