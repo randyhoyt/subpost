@@ -2,7 +2,7 @@
 
 require_once('../../../wp-admin/admin.php');
 
-if ($_REQUEST["action"]=="save") {
+if (isset($_REQUEST["action"]) && $_REQUEST["action"]=="save") {
 
 	$nonce = $_REQUEST['_wpnonce'];
 	if (! wp_verify_nonce($nonce, 'subpost') ) wp_die("You do not have permission to do that.");
@@ -61,8 +61,13 @@ if ($_REQUEST["action"]=="save") {
 
 	$child = new stdClass;
 	$child->ID = 0;
+	$child->post_title = "";	
+	$child->post_content = "";	
+	$post_id = 0;
 
-	$post_id = (int) trim($_REQUEST['post']);
+	if (isset($_REQUEST['post'])) {
+	   $post_id = (int) trim($_REQUEST['post']);
+    }
 	if ($post_id > 0) {
 		$child = get_post($post_id);
 	}
