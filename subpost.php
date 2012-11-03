@@ -3,7 +3,7 @@
 /*
 Plugin Name: Subordinate Post Type Helpers
 Description: This plugin provides a number of helpers for registering a custom post type that is subordinate to another post type.
-Version: 0.2.1
+Version: 0.2.2
 Author: randyhoyt
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -154,7 +154,7 @@ function subpost_render_meta_box() {
         echo '<p>' . $current_sub_post_type["args"]['labels']['not_found'] . '</p>';
     }
     echo '</div>';
-    echo '<a title="' . $current_sub_post_type["args"]['labels']['add_new_item'] . '" class="button thickbox" href="'. plugin_dir_url(__FILE__) . 'children.php?&amp;form_title=' . $current_sub_post_type["args"]['labels']['add_new_item'] . '&amp;post_parent=' . $post->ID . '&amp;post_type=' . $current_sub_post_type["post_type"] . '&amp;TB_iframe=1&amp;width=480&amp;height=440">' . $current_sub_post_type["args"]['labels']['add_new_item'] . '</a>';   
+    echo '<a title="' . $current_sub_post_type["args"]['labels']['add_new_item'] . '" class="button thickbox" href="'. plugin_dir_url(__FILE__) . 'children.php?iframe_fix=/wp-admin/children.php&amp;form_title=' . $current_sub_post_type["args"]['labels']['add_new_item'] . '&amp;post_parent=' . $post->ID . '&amp;post_type=' . $current_sub_post_type["post_type"] . '&amp;TB_iframe=1&amp;width=480&amp;height=440">' . $current_sub_post_type["args"]['labels']['add_new_item'] . '</a>';   
 }
 
 function subpost_display_all_children($post_id,$sub_post_type_name) {
