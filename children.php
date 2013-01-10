@@ -84,13 +84,18 @@ if (isset($_REQUEST["submit_action"]) && $_REQUEST["submit_action"]=="save") {
 
 }
 
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="<?php echo get_bloginfo('url') . ('/wp-admin/load-styles.php?c=1&dir=ltr&load=admin-bar,wp-admin,media'); ?>" />	
-	<link rel="stylesheet" type="text/css" href="<?php echo get_bloginfo('url') . ('/wp-admin/css/colors-fresh.css'); ?>" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<?php
+
+wp_enqueue_style(array('wp-admin','media-views','wp-jquery-ui-dialog'));
+wp_enqueue_script(array(
+        "jquery","admin-bar","hoverIntent","common","underscore","shortcode","backbone","media-models","plupload","plupload-html5","plupload-flash","plupload-silverlight","plupload-html4","json2","wp-plupload","jquery-ui-core","jquery-ui-widget","jquery-ui-mouse","jquery-ui-sortable","media-views","media-editor","word-count","editor","quicktags","jquery-ui-resizable","jquery-ui-draggable","jquery-ui-button","jquery-ui-position","jquery-ui-dialog","wpdialogs","wplink","wpdialogs-popup","thickbox","media-upload"
+    ));
+
+?>
 	<style>
 		.deletelink {color: red !important; border: 0 !important; font-weight: normal !important;}
 		.deletelink:hover {color: white !important; background: red; cursor: pointer; text-decoration: underline; }
@@ -132,7 +137,9 @@ if (isset($_REQUEST["submit_action"]) && $_REQUEST["submit_action"]=="save") {
 						<span class="alignleft"><label for="src">Content</label></span>
 						<span class="alignright"></span>
 					</th>
-					<td class="field"><textarea name="post_content"><?php echo $child->post_content; ?></textarea></td>
+					<td class="field">
+					   <?php wp_editor( $child->post_content, "post_content", $settings = array() ); ?>
+					   <!--textarea name="post_content"><?php echo $child->post_content; ?></textarea--></td>
 				</tr>
 				<?php // } ?>
 
@@ -152,5 +159,11 @@ if (isset($_REQUEST["submit_action"]) && $_REQUEST["submit_action"]=="save") {
 
 	</div></div></div></form>
 
+<?php
+
+do_action('admin_footer', '');
+do_action('admin_print_footer_scripts');
+
+?>
 </body>
 </html>
