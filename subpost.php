@@ -128,7 +128,8 @@ function subpost_add_meta_box() {
                             'subpost_render_meta_box', 
                             $post_type["parent_post_type"], 
                             'normal', 
-                            'high'
+                            'high',
+                            array("sub_post_type" => $post_type)
                     );
 
             }
@@ -138,13 +139,13 @@ function subpost_add_meta_box() {
 
 }
 
-function subpost_render_meta_box() {
+function subpost_render_meta_box($post,$metabox) {
 
-    global $post;
-
-    $sub_post_type_factory = SubPostTypeFactory::getInstance();
-    $post_types = $sub_post_type_factory->getPostTypes();
-    $current_sub_post_type = $post_types[$sub_post_type_factory->getCurrentPostType()];
+    //global $post;
+    //$sub_post_type_factory = SubPostTypeFactory::getInstance();
+    //$post_types = $sub_post_type_factory->getPostTypes();
+    //$current_sub_post_type = $post_types[$sub_post_type_factory->getCurrentPostType()];
+    $current_sub_post_type = $metabox['args']['sub_post_type'];
 
     echo '<div id="subpost_list_children_' . $current_sub_post_type["post_type"] . '">';
     $output = subpost_display_all_children($post->ID,$current_sub_post_type["post_type"]);

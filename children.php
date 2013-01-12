@@ -88,20 +88,21 @@ if (isset($_REQUEST["submit_action"]) && $_REQUEST["submit_action"]=="save") {
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link rel='stylesheet' href='http://subpost.polumetis.com/wp-admin/load-styles.php?c=0&amp;dir=ltr&amp;load=admin-bar,buttons,media-views,wp-admin&amp;ver=3.5' type='text/css' media='all' />
 <?php
 
-wp_enqueue_style(array('wp-admin','media-views','wp-jquery-ui-dialog'));
+wp_enqueue_style(array('wp-admin','media-views','wp-jquery-ui-dialog','buttons'));
 wp_enqueue_script(array(
         "jquery","admin-bar","hoverIntent","common","underscore","shortcode","backbone","media-models","plupload","plupload-html5","plupload-flash","plupload-silverlight","plupload-html4","json2","wp-plupload","jquery-ui-core","jquery-ui-widget","jquery-ui-mouse","jquery-ui-sortable","media-views","media-editor","word-count","editor","quicktags","jquery-ui-resizable","jquery-ui-draggable","jquery-ui-button","jquery-ui-position","jquery-ui-dialog","wpdialogs","wplink","wpdialogs-popup","thickbox","media-upload"
     ));
 
 ?>
 	<style>
-		.deletelink {color: red !important; border: 0 !important; font-weight: normal !important;}
+		.deletelink {color: red !important; border: 0 !important; font-weight: normal !important; background: transparent}
 		.deletelink:hover {color: white !important; background: red; cursor: pointer; text-decoration: underline; }
 	</style>		
 </head>
-<body style="min-height: 0px; height: auto;">
+<body style="min-height: 0px; height: auto;" class="wp-core-ui">
 
 	<?php
 		if (isset($_REQUEST['form_title'])) {
@@ -112,7 +113,7 @@ wp_enqueue_script(array(
 		}
 	?>
 
-	<form method="post" class="media-upload-form"><div id="media-items"><div style="margin: 1em;" class="media-item"><div style="padding: 1em;">
+	<form method="post" class="media-upload-form"><div id="media-items"><div style="margin: 1em; border-color: #CCC;" class="media-item"><div style="padding: 1em;">
 
 		<input type="hidden" name="submit_action" value="save" />
 		<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('subpost'); ?>" />
@@ -138,7 +139,7 @@ wp_enqueue_script(array(
 						<span class="alignright"></span>
 					</th>
 					<td class="field">
-					   <?php wp_editor( $child->post_content, "post_content", $settings = array() ); ?>
+					   <?php wp_editor( $child->post_content, "post_content", array("textarea_name" => "post_content", "media_buttons" => false, "textarea_rows" => 6) ); ?>
 					   <!--textarea name="post_content"><?php echo $child->post_content; ?></textarea--></td>
 				</tr>
 				<?php // } ?>
@@ -150,8 +151,8 @@ wp_enqueue_script(array(
 						
 					</th>
 					<td style="padding-top: 1.5em;" class="image-only">
-						<input type="submit" class="button-secondary" value="Save" />
-						<span class="alignright"><?php if ($mode=="edit") { ?><input name="form_submit" type="submit" class="deletelink" value="Move to Trash" /><?php } ?></span>
+						<input type="submit" class="alignright button button-primary button-large" value="Save" />
+						<span><?php if ($mode=="edit") { ?><input name="form_submit" type="submit" class="deletelink" value="Move to Trash" /><?php } ?></span>
 					</td>
 				</tr>
 			</tbody>
